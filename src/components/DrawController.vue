@@ -9,7 +9,6 @@
             @mousemove="handleMouseMove"
         ></canvas>
         <span>{{ volume }}%</span>
-        <div>{{ drawnLength }}</div>
     </div>
 </template>
 
@@ -38,6 +37,11 @@ function handleDraw(x: number, y: number) {
 
     $ctx.value.fillStyle = "black";
     $ctx.value.fillRect(x, y, 1, 1);
+
+    const pixelData = $ctx.value.getImageData(x, y, 1, 1).data;
+    if (pixelData[3] === 255) {
+        drawnLength.value += 1;
+    }
 }
 
 // 그려져 있는지 확인
@@ -51,7 +55,6 @@ function checkDraw(x: number, y: number) {
     // 해당 픽셀이 칠한 곳이 아닐 경우
     if (pixelData[3] === 0) {
         handleDraw(x, y);
-        drawnLength.value += 1;
     }
 }
 
