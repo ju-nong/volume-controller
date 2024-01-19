@@ -2,11 +2,16 @@
     <div class="wrap">
         <TallController />
         <SlopeController />
+        <RandomController />
     </div>
 </template>
 
 <script setup lang="ts">
-import { TallController, SlopeController } from "./components";
+import {
+    TallController,
+    SlopeController,
+    RandomController,
+} from "./components";
 </script>
 
 <style scoped>
