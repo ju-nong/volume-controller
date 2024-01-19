@@ -3,6 +3,7 @@
         <TallController />
         <SlopeController />
         <RandomController />
+        <DrawController />
     </div>
 </template>
 
@@ -11,6 +12,7 @@ import {
     TallController,
     SlopeController,
     RandomController,
+    DrawController,
 } from "./components";
 </script>
 
