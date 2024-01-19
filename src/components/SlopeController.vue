@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <p>Volume: {{ Math.trunc(volume) }}</p>
+        <p>Volume: {{ Math.round(volume) }}</p>
 
         <div ref="$container" @mousedown="hanldeMouseDown">
             <div
@@ -120,7 +120,7 @@ watch(isMoving, (to) => {
                 : degree;
 
         // 변경될 볼륨
-        const afterVolume = volume.value + calcDegree / 30;
+        const afterVolume = volume.value + Math.round(calcDegree / 30);
 
         // min, max 예외처리
         if (!(afterVolume > 100 || afterVolume < 0)) {
