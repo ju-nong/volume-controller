@@ -1,6 +1,6 @@
 import VolumeIcon from "./VolumeIcon.vue";
 
 import TallController from "./TallController.vue";
-import SlopeVolumeController from "./SlopeVolumeController.vue";
+import SlopeController from "./SlopeController.vue";
 
-export { VolumeIcon, TallController, SlopeVolumeController };
+export { VolumeIcon, TallController, SlopeController };
