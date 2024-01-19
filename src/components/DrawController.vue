@@ -9,6 +9,7 @@
             @mousemove="handleMouseMove"
         ></canvas>
         <span>{{ volume }}%</span>
+        <div>{{ drawnLength }}</div>
     </div>
 </template>
 
