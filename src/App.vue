@@ -1,11 +1,12 @@
 <template>
     <div class="wrap">
         <TallController />
+        <SlopeVolumeController />
     </div>
 </template>
 
 <script setup lang="ts">
-import { TallController } from "./components";
+import { TallController, SlopeVolumeController } from "./components";
 </script>
 
 <style scoped>
