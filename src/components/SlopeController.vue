@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <div>{{ controllerDeg }}</div>
-        <p>Volume: {{ volume }}</p>
+        <p>Volume: {{ Math.trunc(volume) }}</p>
 
         <div ref="$container" @mousedown="hanldeMouseDown">
             <div
@@ -21,6 +20,7 @@
 import { ref, watch } from "vue";
 
 const isMouseDown = ref(false);
+const isMoving = ref(false);
 
 const volume = ref(100);
 
@@ -75,6 +75,11 @@ function handleMouseUp() {
     }
 
     requestAnimationFrame(animate);
+
+    // transition 0.3s
+    setTimeout(() => {
+        isMoving.value = false;
+    }, 300);
 }
 
 function handleMouseMove(event: MouseEvent) {
@@ -87,6 +92,7 @@ function handleMouseMove(event: MouseEvent) {
 
 function hanldeMouseDown(event: MouseEvent) {
     isMouseDown.value = true;
+    isMoving.value = true;
 
     setDegree(event);
 
@@ -98,6 +104,36 @@ watch(isMouseDown, (to) => {
     if (!to) {
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
+    }
+});
+
+watch(isMoving, (to) => {
+    function animate() {
+        const degree = controllerDeg.value;
+
+        // 반대쪽 각도 예외처리
+        const calcDegree =
+            degree < -90
+                ? -90 + Math.abs(degree + 90)
+                : degree > 90
+                ? 90 - Math.abs(degree - 90)
+                : degree;
+
+        // 변경될 볼륨
+        const afterVolume = volume.value + calcDegree / 30;
+
+        // min, max 예외처리
+        if (!(afterVolume > 100 || afterVolume < 0)) {
+            volume.value = afterVolume;
+        }
+
+        if (isMoving.value) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    if (to) {
+        requestAnimationFrame(animate);
     }
 });
 </script>
