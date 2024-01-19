@@ -1,3 +1,5 @@
+import VolumeIcon from "./VolumeIcon.vue";
+
 import TallController from "./TallController.vue";
 
-export { TallController };
+export { VolumeIcon, TallController };
