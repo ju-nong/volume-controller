@@ -63,8 +63,19 @@ function calcDegree() {
     controllerDeg.value = Math.atan2(b, a) * (180 / Math.PI);
 }
 
+function handleMouseMove(event: MouseEvent) {
+    if (!isMouseDown.value) {
+        return;
+    }
+
+    setDegree(event);
+}
+
 function handleMouseUp() {
     isMouseDown.value = false;
+
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
 
     function animate() {
         calcDegree();
@@ -82,14 +93,6 @@ function handleMouseUp() {
     }, 300);
 }
 
-function handleMouseMove(event: MouseEvent) {
-    if (!isMouseDown.value) {
-        return;
-    }
-
-    setDegree(event);
-}
-
 function hanldeMouseDown(event: MouseEvent) {
     isMouseDown.value = true;
     isMoving.value = true;
@@ -99,13 +102,6 @@ function hanldeMouseDown(event: MouseEvent) {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
 }
-
-watch(isMouseDown, (to) => {
-    if (!to) {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-    }
-});
 
 watch(isMoving, (to) => {
     function animate() {
