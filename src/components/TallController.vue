@@ -17,19 +17,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { VolumeIcon } from ".";
 
 const isMouseDown = ref(false);
 
 const $progress = ref<null | HTMLDivElement>(null);
 const progressWidth = ref(100);
-const progressLeft = computed(() =>
-    $progress.value === null ? 0 : $progress.value.getBoundingClientRect().left,
-);
 
 function calcWidth(clientX: number) {
-    const width = ((clientX - progressLeft.value) / 14) * 100;
+    if ($progress.value === null) {
+        return;
+    }
+
+    const { left } = $progress.value.getBoundingClientRect();
+
+    const width = ((clientX - left) / 14) * 100;
     progressWidth.value = width > 100 ? 100 : width < 0 ? 0 : width;
 }
 
