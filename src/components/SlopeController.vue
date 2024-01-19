@@ -116,10 +116,14 @@ watch(isMoving, (to) => {
                 : degree;
 
         // 변경될 볼륨
-        const afterVolume = volume.value + Math.round(calcDegree / 30);
+        const afterVolume = volume.value + calcDegree / 30;
 
         // min, max 예외처리
-        if (!(afterVolume > 100 || afterVolume < 0)) {
+        if (afterVolume > 100) {
+            volume.value = 100;
+        } else if (afterVolume < 0) {
+            volume.value = 0;
+        } else {
             volume.value = afterVolume;
         }
 
