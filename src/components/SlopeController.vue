@@ -3,8 +3,9 @@
         <div>{{ controllerDeg }}</div>
         <p>Volume: {{ volume }}</p>
 
-        <div ref="$controller" @mousedown="hanldeMouseDown">
+        <div ref="$container" @mousedown="hanldeMouseDown">
             <div
+                ref="$controller"
                 :style="`--slope-deg: ${controllerDeg}deg`"
                 :class="isMouseDown ? 'moving' : ''"
             >
@@ -17,20 +18,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, watch } from "vue";
 
 const isMouseDown = ref(false);
 
 const volume = ref(100);
 
+const $container = ref<null | HTMLDivElement>(null);
 const $controller = ref<null | HTMLDivElement>(null);
 const controllerDeg = ref(0);
+
+// 사용자가 직접 돌릴 때
 function setDegree(event: MouseEvent) {
-    if ($controller.value === null) {
+    if ($container.value === null) {
         return;
     }
 
-    let { left, top } = $controller.value.getBoundingClientRect();
+    let { left, top } = $container.value.getBoundingClientRect();
 
     left += 100;
     top += 20;
@@ -44,8 +48,33 @@ function setDegree(event: MouseEvent) {
     controllerDeg.value = angleRadians * (180 / Math.PI);
 }
 
+// 돌리는 걸 중지하고 원상복귀할 때
+function calcDegree() {
+    if ($controller.value === null) {
+        return null;
+    }
+
+    const { transform } = getComputedStyle($controller.value);
+
+    const values = transform.split("(")[1].split(")")[0].split(",");
+    const a = Number(values[0]);
+    const b = Number(values[1]);
+
+    controllerDeg.value = Math.atan2(b, a) * (180 / Math.PI);
+}
+
 function handleMouseUp() {
     isMouseDown.value = false;
+
+    function animate() {
+        calcDegree();
+
+        if (controllerDeg.value !== 0) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    requestAnimationFrame(animate);
 }
 
 function handleMouseMove(event: MouseEvent) {
