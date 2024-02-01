@@ -34,39 +34,6 @@ const degree = ref(0);
 const pointTop = ref(0);
 const pointLeft = ref(0);
 
-function animateParabola(peak: number) {
-    const startTime = performance.now();
-    const minTopHeight = -25; // top의 최소 높이 (px)
-    const maxTopHeight = -25; // top의 최대 높이 (px)
-    const maxLeftWidth = 100; // left의 최대 너비 (%)
-    const minPeak = -45; // 최소 peak 값
-    const maxPeak = 0; // 최대 peak 값
-
-    // peak 값에 따른 top의 시작 높이 계산
-    const startTop = ((minTopHeight * (peak - maxPeak)) / minPeak) * -1;
-    const leftRatio = (peak - maxPeak) / minPeak;
-
-    function update() {
-        const currentTime = performance.now();
-        const progress = Math.min((currentTime - startTime) / 300, 1);
-
-        // 포물선 경로 계산
-        const x = progress * maxLeftWidth; // left 값은 항상 0에서 100%까지 증가
-        const parabola = 4 * progress * (1 - progress);
-        const y = startTop - (maxTopHeight - startTop) * parabola;
-
-        // element의 위치 업데이트
-        pointTop.value = -y; // y 값은 음수로 처리
-        pointLeft.value = x * leftRatio;
-
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-
-    requestAnimationFrame(update);
-}
-
 function setDegree() {
     if (isMouseDown.value) {
         const afterDegree = degree.value - 1;
@@ -80,12 +47,10 @@ function setDegree() {
 }
 
 function handleMouseUp() {
-    animateParabola(degree.value);
-
     isMouseDown.value = false;
     degree.value = 0;
 
-    document.removeEventListener("mouseup", handleMouseDown);
+    document.removeEventListener("mouseup", handleMouseUp);
 }
 
 function handleMouseDown() {
@@ -151,7 +116,7 @@ function handleMouseDown() {
             left: var(--point-left);
 
             &.hidden {
-                display: none;
+                opacity: 0;
             }
         }
     }
