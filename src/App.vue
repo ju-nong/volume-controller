@@ -4,7 +4,7 @@
         <SlopeController />
         <RandomController />
         <DrawController />
-        <CannonController />
+        <!-- <CannonController /> -->
     </div>
 </template>
 
