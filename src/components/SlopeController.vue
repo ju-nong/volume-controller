@@ -38,14 +38,14 @@ function setDegree(event: MouseEvent) {
 
     // 왼쪽 부분 드래그할 경우
     if (isLeftMouseDown.value) {
-        left -= 100;
+        const centerX = left + 100; // 컨트롤러의 중심점 X 좌표를 수동으로 조정
 
-        const dx = clientX - left;
+        const dx = clientX - centerX;
         const dy = clientY - top;
 
         const angleRadians = Math.atan2(dy, dx);
-
-        controllerDeg.value = angleRadians * (180 / Math.PI) * -1;
+        controllerDeg.value =
+            angleRadians * (180 / Math.PI) + (dy > 0 ? -180 : 180);
     } else {
         left += 100;
 
@@ -53,7 +53,6 @@ function setDegree(event: MouseEvent) {
         const dy = clientY - top;
 
         const angleRadians = Math.atan2(dy, dx);
-
         controllerDeg.value = angleRadians * (180 / Math.PI);
     }
 }
