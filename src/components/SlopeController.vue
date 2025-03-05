@@ -21,6 +21,7 @@ import { ref, watch } from "vue";
 
 const isMouseDown = ref(false);
 const isMoving = ref(false);
+const isLeftMouseDown = ref(false);
 
 const volume = ref(100);
 
@@ -30,22 +31,31 @@ const controllerDeg = ref(0);
 
 // 사용자가 직접 돌릴 때
 function setDegree(event: MouseEvent) {
-    if ($container.value === null) {
-        return;
-    }
-
-    let { left, top } = $container.value.getBoundingClientRect();
-
-    left += 100;
-    top += 20;
     const { clientX, clientY } = event;
+    let { left, top } = $container.value!.getBoundingClientRect();
 
-    const dx = clientX - left;
-    const dy = clientY - top;
+    top += 20;
 
-    const angleRadians = Math.atan2(dy, dx);
+    // 왼쪽 부분 드래그할 경우
+    if (isLeftMouseDown.value) {
+        left -= 100;
 
-    controllerDeg.value = angleRadians * (180 / Math.PI);
+        const dx = clientX - left;
+        const dy = clientY - top;
+
+        const angleRadians = Math.atan2(dy, dx);
+
+        controllerDeg.value = angleRadians * (180 / Math.PI) * -1;
+    } else {
+        left += 100;
+
+        const dx = clientX - left;
+        const dy = clientY - top;
+
+        const angleRadians = Math.atan2(dy, dx);
+
+        controllerDeg.value = angleRadians * (180 / Math.PI);
+    }
 }
 
 // 돌리는 걸 중지하고 원상복귀할 때
@@ -96,6 +106,16 @@ function handleMouseUp() {
 function handleMouseDown(event: MouseEvent) {
     isMouseDown.value = true;
     isMoving.value = true;
+
+    if ($container.value === null) {
+        return;
+    }
+
+    const { clientX } = event;
+    const { left, width } = $container.value.getBoundingClientRect();
+    const centerX = left + width / 2; // 컨트롤러 중심 X 좌표
+
+    isLeftMouseDown.value = clientX < centerX;
 
     setDegree(event);
 
