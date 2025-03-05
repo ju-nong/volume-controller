@@ -2,7 +2,7 @@
     <div class="container">
         <p>Volume: {{ Math.round(volume) }}</p>
 
-        <div ref="$container" @mousedown="hanldeMouseDown">
+        <div ref="$container" @mousedown="handleMouseDown">
             <div
                 ref="$controller"
                 :style="`--slope-deg: ${controllerDeg}deg`"
@@ -93,7 +93,7 @@ function handleMouseUp() {
     }, 300);
 }
 
-function hanldeMouseDown(event: MouseEvent) {
+function handleMouseDown(event: MouseEvent) {
     isMouseDown.value = true;
     isMoving.value = true;
 
