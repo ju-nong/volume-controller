@@ -1,6 +1,14 @@
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+
+.volume {
+	min-width: 124px;
+	font-size: 20px;
+	font-weight: 600;
+	white-space: nowrap;
+	position: absolute;
 }
