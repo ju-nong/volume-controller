@@ -1,7 +1,5 @@
 <template>
     <div class="container">
-        <p>Volume: {{ Math.round(volume) }}</p>
-
         <div ref="$container" @mousedown="handleMouseDown">
             <div
                 ref="$controller"
@@ -12,6 +10,8 @@
                     <span :style="`--slope-volume: ${volume}%`"></span>
                 </div>
             </div>
+
+            <p class="volume">Volume: {{ Math.round(volume) }}</p>
         </div>
     </div>
 </template>
@@ -167,13 +167,10 @@ watch(isMoving, (to) => {
     font-weight: 600;
     column-gap: 20px;
 
-    > p {
-        min-width: 120px;
-    }
-
     > div {
         width: 200px;
         height: 40px;
+        position: relative;
 
         > div {
             background-color: #ccc;
@@ -211,6 +208,13 @@ watch(isMoving, (to) => {
                     transform: translate(-50%, -50%);
                 }
             }
+        }
+
+        > p {
+            top: 50%;
+            left: 0;
+
+            transform: translate(-110%, -50%);
         }
     }
 }
