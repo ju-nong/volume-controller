@@ -2,9 +2,8 @@
     <div class="container">
         <div
             class="controller"
+            :class="{ controlling: isMouseDown }"
             @mousemove="handleMouseMove"
-            @mouseup="isMouseDown = false"
-            @mouseleave="isMouseDown = false"
         >
             <div ref="$progress" @mousedown="handleMouseDown">
                 <div :style="`--tall-width: ${progressWidth}%`"></div>
@@ -13,6 +12,7 @@
         <div class="icon">
             <VolumeIcon :width="progressWidth" />
         </div>
+        <p class="volume">Volume: {{ Math.floor(progressWidth) }}</p>
     </div>
 </template>
 
@@ -36,8 +36,15 @@ function calcWidth(clientX: number) {
     progressWidth.value = width > 100 ? 100 : width < 0 ? 0 : width;
 }
 
+let mouseUpEvent: any = null;
+
 function handleMouseDown(event: MouseEvent) {
     isMouseDown.value = true;
+
+    mouseUpEvent = window.addEventListener("mouseup", () => {
+        isMouseDown.value = false;
+        window.removeEventListener("mouseup", mouseUpEvent);
+    });
 
     const { clientX } = event;
 
@@ -61,6 +68,7 @@ function handleMouseMove(event: MouseEvent) {
     width: 50px;
     height: 240px;
     cursor: pointer;
+    position: relative;
 
     &:hover {
         .controller {
@@ -85,6 +93,10 @@ function handleMouseMove(event: MouseEvent) {
         left: 0;
         padding: 16px 18px;
 
+        &.controlling {
+            visibility: visible;
+        }
+
         > div {
             width: 100%;
             height: 100%;
@@ -95,6 +107,12 @@ function handleMouseMove(event: MouseEvent) {
                 background-color: #247c54;
             }
         }
+    }
+
+    > p {
+        left: 0;
+        bottom: 25px;
+        transform: translate(-110%, 50%);
     }
 }
 </style>
