@@ -1,8 +1,9 @@
 <template>
     <div class="container">
-        <p>Current Volume Level: {{ volume }}%</p>
-
-        <button @click="handleChangeVolume">Change</button>
+        <div>
+            <button @click="handleChangeVolume">🎲</button>
+            <p class="volume">Volume: {{ volume }}</p>
+        </div>
     </div>
 </template>
 
@@ -19,28 +20,33 @@ function handleChangeVolume() {
 <style scoped>
 .container {
     height: 240px;
-    font-size: 20px;
-    font-weight: 600;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 
-    > button {
-        cursor: pointer;
-        padding: 8px 16px;
-        border: 1px solid #ccc;
-        font-weight: 500;
-        margin-top: 40px;
-        background-color: #e1e1e1;
+    > div {
+        position: relative;
+        > button {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            font-weight: 500;
+            background-color: #e1e1e1;
 
-        &:hover {
-            background-color: #eee;
+            &:hover {
+                background-color: #eee;
+            }
+
+            &:active {
+                background-color: #ccc;
+            }
         }
 
-        &:active {
-            background-color: #ccc;
+        > p {
+            top: 50%;
+            left: 0;
+            transform: translate(-110%, -50%);
         }
     }
 }
