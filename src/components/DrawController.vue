@@ -1,14 +1,16 @@
 <template>
     <div class="container">
-        <span>Volume</span>
-        <canvas
-            :width="WIDTH"
-            :height="HEIGHT"
-            ref="$canavas"
-            @mousedown="handleMouseDown"
-            @mousemove="handleMouseMove"
-        ></canvas>
-        <span>{{ volume }}%</span>
+        <div>
+            <canvas
+                :width="WIDTH"
+                :height="HEIGHT"
+                ref="$canavas"
+                @mousedown="handleMouseDown"
+                @mousemove="handleMouseMove"
+            >
+            </canvas>
+            <p class="volume">Volume: {{ volume }}</p>
+        </div>
     </div>
 </template>
 
@@ -85,14 +87,20 @@ function handleMouseDown() {
     height: 240px;
     display: flex;
     align-items: center;
-    font-size: 20px;
-    font-weight: 600;
-    column-gap: 10px;
-    width: 283px;
     margin: 0 auto;
 
-    > canvas {
-        outline: 1px solid #ccc;
+    > div {
+        position: relative;
+
+        > canvas {
+            outline: 1px solid #ccc;
+        }
+
+        > p {
+            top: 50%;
+            left: 0;
+            transform: translate(-110%, -50%);
+        }
     }
 }
 </style>
