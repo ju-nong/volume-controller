@@ -103,12 +103,12 @@ function handleMouseUp() {
 }
 
 function handleMouseDown(event: MouseEvent) {
-    isMouseDown.value = true;
-    isMoving.value = true;
-
-    if ($container.value === null) {
+    if ($container.value === null || isMouseDown.value || isMoving.value) {
         return;
     }
+
+    isMouseDown.value = true;
+    isMoving.value = true;
 
     const { clientX } = event;
     const { left, width } = $container.value.getBoundingClientRect();
