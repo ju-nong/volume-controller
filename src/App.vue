@@ -4,6 +4,7 @@
         <SlopeController />
         <RandomController />
         <DrawController />
+        <VerticalController />
         <!-- <CannonController /> -->
     </div>
 </template>
@@ -15,6 +16,7 @@ import {
     RandomController,
     DrawController,
     CannonController,
+    VerticalController,
 } from "./components";
 </script>
 
