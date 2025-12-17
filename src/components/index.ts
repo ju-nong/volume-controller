@@ -6,7 +6,7 @@ import RandomController from "./RandomController.vue";
 import DrawController from "./DrawController.vue";
 import CannonController from "./CannonController.vue";
 import VerticalController from "./VerticalController.vue";
-// import CrankController from "./CrankController.vue";
+import CrankController from "./CrankController.vue";
 
 export {
     VolumeIcon,
@@ -16,5 +16,5 @@ export {
     DrawController,
     CannonController,
     VerticalController,
-    // CrankController,
+    CrankController,
 };
