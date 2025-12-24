@@ -7,6 +7,7 @@ import DrawController from "./DrawController.vue";
 import CannonController from "./CannonController.vue";
 import VerticalController from "./VerticalController.vue";
 import CrankController from "./CrankController.vue";
+import FixedController from "./FixedController.vue";
 
 export {
     VolumeIcon,
@@ -17,4 +18,5 @@ export {
     CannonController,
     VerticalController,
     CrankController,
+    FixedController,
 };

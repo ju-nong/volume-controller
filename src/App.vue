@@ -6,6 +6,7 @@
         <DrawController />
         <VerticalController />
         <CrankController />
+        <FixedController />
         <!-- <CannonController /> -->
     </div>
 </template>
@@ -19,6 +20,7 @@ import {
     CannonController,
     VerticalController,
     CrankController,
+    FixedController,
 } from "./components";
 </script>
 
