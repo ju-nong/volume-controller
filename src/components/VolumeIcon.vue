@@ -1,5 +1,10 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 75 75">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.0"
+        viewBox="0 0 75 75"
+        :class="isBlack ? 'black' : ''"
+    >
         <path
             d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z"
         />
@@ -21,20 +26,32 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 
-const props = defineProps({
-    width: {
-        required: true,
-        default: 100,
-        type: Number,
+const props = withDefaults(
+    defineProps<{
+        width: number;
+        isBlack?: boolean;
+    }>(),
+    {
+        isBlack: false,
     },
-});
-const { width } = toRefs(props);
+);
+const { width, isBlack } = toRefs(props);
 </script>
 
 <style scoped>
 svg {
     width: 100%;
     height: 100%;
+
+    &.black {
+        > path {
+            stroke: #000;
+
+            &:first-child {
+                fill: #000;
+            }
+        }
+    }
 
     > path {
         stroke: #fff;
