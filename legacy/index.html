@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ChatGPT Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="font-size-controls" style="position:fixed;top:20px;right:20px;z-index:1000;display:flex;gap:6px;">
+        <button id="decreaseFont" title="글자 작게" style="font-size:18px;padding:4px 10px;">A-</button>
+        <button id="increaseFont" title="글자 크게" style="font-size:22px;padding:4px 10px;">A+</button>
+    </div>
+    <div class="container">
+        <div class="chat-container" id="chatContainer">
+            <!-- 채팅 메시지들이 여기에 추가됩니다 -->
+        </div>
+        <div class="input-container">
+            <textarea id="userInput" placeholder="메시지를 입력하세요..."></textarea>
+            <button id="sendButton">전송</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
